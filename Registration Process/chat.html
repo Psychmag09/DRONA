@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        label {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        input {
+            margin-top: 5px;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #3e8e41;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label>Register as:</label>
+        <select id="user-type">
+			<option value="user">User</option>
+			<option value="admin">Admin</option>
+		</select>
+
+        <div id="user-fields">
+            <label>Email:</label>
+            <input type="email" id="email">
+
+            <label>Password:</label>
+            <input type="password" id="password">
+        </div>
+
+        <div id="admin-fields" style="display: none;">
+            <label>Train ID:</label>
+            <input type="text" id="train-id">
+
+            <label>Password:</label>
+            <input type="password" id="admin-password">
+        </div>
+
+        <button type="submit" id="register-btn">Register</button>
+
+        <div id="message"></div>
+    </form>
+
+    <script>
+        const form = document.querySelector('form');
+        const userType = document.querySelector('#user-type');
+        const userFields = document.querySelector('#user-fields');
+        const adminFields = document.querySelector('#admin-fields');
+        const registerBtn = document.querySelector('#register-btn');
+        const message = document.querySelector('#message');
+
+        userType.addEventListener('change', () => {
+            if (userType.value === 'user') {
+                userFields.style.display = 'block';
+                adminFields.style.display = 'none';
+            } else {
+                userFields.style.display = 'none';
+                adminFields.style.display = 'block';
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let formData;
+
+            if (userType.value === 'user') {
+                formData = {
+                    email: document.querySelector('#email').value,
+                    password: document.querySelector('#password').value
+                };
+            } else {
+                formData = {
+                    trainId: document.querySelector('#train-id').value,
+                    password: document.querySelector('#admin-password').value
+                };
+            }
+
+            // Do something with formData (e.g. send to server)
+
+            message.textContent = 'Registration successful';
+            message.className = 'success';
+        });
+    </script>
+</body>
+
+</html>
